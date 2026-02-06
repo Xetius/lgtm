@@ -55,27 +55,33 @@ spec:
             job_name = "alloy"
           }
           
+          discovery.kubernetes "services" {
+            role = "service"
+          }
+
           prometheus.scrape "kubernetes_services" {
             job_name = "kubernetes-services"
-            kubernetes_sd_configs {
-              role = "service"
-            }
+            targets = discovery.kubernetes.services.targets
             forward_to = [prometheus.remote_write.default.receiver]
           }
-          
+
+          discovery.kubernetes "pods" {
+            role = "pod"
+          }
+
           prometheus.scrape "kubernetes_pods" {
             job_name = "kubernetes-pods"
-            kubernetes_sd_configs {
-              role = "pod"
-            }
+            targets = discovery.kubernetes.pods.targets
             forward_to = [prometheus.remote_write.default.receiver]
           }
-          
+
+          discovery.kubernetes "nodes" {
+            role = "node"
+          }
+
           prometheus.scrape "kubernetes_nodes" {
             job_name = "kubernetes-nodes"
-            kubernetes_sd_configs {
-              role = "node"
-            }
+            targets = discovery.kubernetes.nodes.targets
             forward_to = [prometheus.remote_write.default.receiver]
           }
           
