@@ -33,6 +33,11 @@ spec:
           memory: 64Mi
         limits:
           memory: 128Mi
+      # Enable cert-manager integration for webhook certificates
+      certManager:
+        enabled: true
+        cert:
+          create: true
 
     certController:
       resources:
@@ -45,10 +50,3 @@ spec:
     # Enable Prometheus metrics
     serviceMonitor:
       enabled: true
-
-    # Enable cert-manager integration for webhook certificates
-    webhook:
-      certManager:
-        enabled: true
-        cert:
-          create: true
