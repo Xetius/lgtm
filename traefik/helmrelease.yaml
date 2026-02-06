@@ -27,11 +27,11 @@ spec:
 
     ports:
       web:
-        port: 8000
+        port: 80
         expose:
           default: true
       websecure:
-        port: 8443
+        port: 443
         expose:
           default: true
       metrics:
