@@ -69,7 +69,7 @@
   "links": [],
   "panels": [
     {
-      "datasource": "loki",
+      "datasource": "mimir",
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -122,7 +122,7 @@
       "type": "text"
     },
     {
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -183,7 +183,7 @@
       "type": "stat"
     },
     {
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -243,7 +243,7 @@
       "type": "stat"
     },
     {
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -308,7 +308,7 @@
       "type": "stat"
     },
     {
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -373,7 +373,7 @@
       "type": "stat"
     },
     {
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -433,7 +433,7 @@
       "type": "stat"
     },
     {
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -493,7 +493,7 @@
       "type": "stat"
     },
     {
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -558,7 +558,7 @@
       "type": "stat"
     },
     {
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -622,7 +622,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -721,7 +721,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -824,7 +824,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -927,7 +927,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1030,7 +1030,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1130,7 +1130,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1150,7 +1150,7 @@
         "label": "Others",
         "threshold": 0
       },
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -1222,7 +1222,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1325,7 +1325,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1425,7 +1425,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1442,7 +1442,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1545,7 +1545,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1648,7 +1648,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -1745,7 +1745,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -1842,7 +1842,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -1936,7 +1936,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1953,7 +1953,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -2056,7 +2056,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -2159,7 +2159,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -2260,7 +2260,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2277,7 +2277,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -2374,7 +2374,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -2471,7 +2471,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -2574,7 +2574,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -2685,7 +2685,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2702,7 +2702,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -2805,7 +2805,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -2908,7 +2908,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -3011,7 +3011,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -3114,7 +3114,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -3217,7 +3217,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -3320,7 +3320,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -3437,7 +3437,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -3534,7 +3534,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -3631,7 +3631,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "loki",
+      "datasource": "mimir",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -3735,7 +3735,7 @@
   "schemaVersion": 26,
   "style": "dark",
   "tags": [
-    "loki"
+    "mimir"
   ],
   "templating": {
     "list": []
