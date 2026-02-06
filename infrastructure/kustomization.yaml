@@ -8,3 +8,4 @@ resources:
   - traefik-flux-kustomization.yaml
   - cert-manager-flux-kustomization.yaml
   - external-secrets-flux-kustomization.yaml
+  - metrics-server-flux-kustomization.yaml
