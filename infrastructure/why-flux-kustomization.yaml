@@ -12,7 +12,6 @@ spec:
     name: flux-system
   dependsOn:
     - name: infrastructure
-    - name: apps
     - name: traefik
   wait: true
   timeout: 10m
