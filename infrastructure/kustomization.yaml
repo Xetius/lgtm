@@ -5,3 +5,6 @@ resources:
   - repositories.yaml
   - infrastructure-flux-kustomization.yaml
   - apps-flux-kustomization.yaml
+  - traefik-flux-kustomization.yaml
+  - cert-manager-flux-kustomization.yaml
+  - external-secrets-flux-kustomization.yaml

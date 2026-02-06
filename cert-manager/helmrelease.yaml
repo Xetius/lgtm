@@ -1,0 +1,54 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: cert-manager
+  namespace: cert-manager
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: cert-manager
+      version: "v1.16.2"
+      sourceRef:
+        kind: HelmRepository
+        name: jetstack
+        namespace: flux-system
+      interval: 1h
+  values:
+    # Install CRDs with the chart
+    installCRDs: true
+
+    # Resource limits for Kind cluster
+    resources:
+      requests:
+        cpu: 50m
+        memory: 128Mi
+      limits:
+        memory: 256Mi
+
+    webhook:
+      resources:
+        requests:
+          cpu: 50m
+          memory: 64Mi
+        limits:
+          memory: 128Mi
+
+    cainjector:
+      resources:
+        requests:
+          cpu: 50m
+          memory: 128Mi
+        limits:
+          memory: 256Mi
+
+    # Enable Prometheus metrics
+    prometheus:
+      enabled: true
+      servicemonitor:
+        enabled: true
+
+    # Global resource settings
+    global:
+      leaderElection:
+        namespace: cert-manager
