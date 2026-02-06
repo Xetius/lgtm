@@ -3,5 +3,5 @@ kind: Kustomization
 resources:
   - namespaces.yaml
   - repositories.yaml
-  - infrastructure-kustomization.yaml
-  - apps-kustomization.yaml
+  - infrastructure-flux-kustomization.yaml
+  - apps-flux-kustomization.yaml

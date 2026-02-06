@@ -2,6 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BOOTSTRAP_FILES_DIR="$SCRIPT_DIR/bootstrap-files"
 CLUSTER_NAME="${CLUSTER_NAME:-lgtm-cluster}"
 REPO_URL="${REPO_URL:-git@github.com:chudson-tng/lgtm.git}"
 SSH_KEY_PATH="${SSH_KEY_PATH:-$HOME/.ssh/id_ed25519}"
@@ -49,11 +50,6 @@ check_prerequisites() {
         exit 1
     fi
     
-    if ! command -v flux &> /dev/null; then
-        echo "Installing flux CLI..."
-        curl -s https://fluxcd.io/install.sh | bash
-    fi
-    
     if [ ! -f "$SSH_KEY_PATH" ]; then
         echo "Error: SSH private key not found at $SSH_KEY_PATH"
         exit 1
@@ -77,32 +73,23 @@ create_cluster() {
         kind delete cluster --name "$CLUSTER_NAME"
     fi
     
-    cat > "$SCRIPT_DIR/kind-config.yaml" <<EOF
-kind: Cluster
-apiVersion: kind.x-k8s.io/v1alpha4
-nodes:
-  - role: control-plane
-  - role: worker
-  - role: worker
-EOF
-    
-    kind create cluster --config "$SCRIPT_DIR/kind-config.yaml" --name "$CLUSTER_NAME"
+    kind create cluster --config "$BOOTSTRAP_FILES_DIR/kind-config.yaml" --name "$CLUSTER_NAME"
     
     echo "Cluster created successfully!"
     kubectl get nodes
     echo ""
 }
 
-# Install Flux CD
-install_flux() {
-    echo "=== Installing Flux CD ==="
+# Install flux-operator
+install_flux_operator() {
+    echo "=== Installing Flux Operator ==="
     
-    flux install
+    kubectl apply -f https://github.com/controlplaneio-fluxcd/flux-operator/releases/latest/download/install.yaml
     
-    echo "Waiting for Flux controllers to be ready..."
-    kubectl wait --for=condition=available --timeout=120s deployment -n flux-system -l app.kubernetes.io/part-of=flux
+    echo "Waiting for Flux Operator to be ready..."
+    kubectl wait --for=condition=available --timeout=120s deployment/flux-operator -n flux-system
     
-    echo "Flux CD installed successfully!"
+    echo "Flux Operator installed successfully!"
     kubectl get deployments -n flux-system
     echo ""
 }
@@ -129,35 +116,48 @@ configure_ssh() {
     echo ""
 }
 
-# Create GitRepository
-create_gitrepository() {
-    echo "=== Creating GitRepository ==="
+# Create FluxInstance
+create_flux_instance() {
+    echo "=== Creating FluxInstance ==="
     
-    # Convert git@github.com:chudson-tng/lgtm.git to ssh://git@github.com/chudson-tng/lgtm.git
-    SSH_URL=$(echo "$REPO_URL" | sed 's|git@github.com:|ssh://git@github.com/|')
+    kubectl apply -f "$BOOTSTRAP_FILES_DIR/flux-instance.yaml"
     
-    cat > "$SCRIPT_DIR/gitrepository.yaml" <<EOF
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: GitRepository
-metadata:
-  name: lgtm-repo
-  namespace: flux-system
-spec:
-  interval: 1m0s
-  ref:
-    branch: main
-  url: $SSH_URL
-  secretRef:
-    name: lgtm-repo-ssh
-EOF
+    echo "Waiting for FluxInstance to be ready..."
+    kubectl wait --for=condition=ready --timeout=180s fluxinstance/flux -n flux-system
     
-    kubectl apply -f "$SCRIPT_DIR/gitrepository.yaml"
+    echo "FluxInstance created successfully!"
+    kubectl get fluxinstances -n flux-system
+    echo ""
     
-    echo "Waiting for GitRepository to be ready..."
-    kubectl wait --for=condition=ready --timeout=60s gitrepository/lgtm-repo -n flux-system
+    echo "Waiting for Flux controllers to be ready..."
+    kubectl wait --for=condition=available --timeout=120s deployment -n flux-system -l app.kubernetes.io/part-of=flux
     
-    echo "GitRepository created successfully!"
-    kubectl get gitrepositories -n flux-system
+    echo "Flux controllers are ready!"
+    kubectl get deployments -n flux-system
+    echo ""
+}
+
+# Wait for LGTM stack deployment
+wait_for_lgtm() {
+    echo "=== Waiting for LGTM Stack Deployment ==="
+    echo "This may take several minutes..."
+    echo ""
+    
+    echo "Waiting for HelmRepositories..."
+    kubectl wait --for=condition=ready --timeout=120s helmrepository/grafana -n flux-system
+    kubectl wait --for=condition=ready --timeout=120s helmrepository/prometheus-community -n flux-system
+    echo "HelmRepositories are ready!"
+    echo ""
+    
+    echo "Waiting for HelmReleases..."
+    for release in mimir loki tempo grafana alloy kube-prometheus-stack; do
+        namespace="observability"
+        if [ "$release" = "kube-prometheus-stack" ]; then
+            namespace="monitoring"
+        fi
+        echo "  - Waiting for $release..."
+        kubectl wait --for=condition=ready --timeout=300s helmrelease/$release -n $namespace 2>/dev/null || echo "    $release may still be installing..."
+    done
     echo ""
 }
 
@@ -168,14 +168,23 @@ verify_setup() {
     echo "Cluster Nodes:"
     kubectl get nodes
     echo ""
+    echo "Flux Operator:"
+    kubectl get deployments -n flux-system -l app.kubernetes.io/name=flux-operator
+    echo ""
     echo "Flux Controllers:"
-    kubectl get deployments -n flux-system
+    kubectl get deployments -n flux-system -l app.kubernetes.io/part-of=flux
+    echo ""
+    echo "FluxInstance:"
+    kubectl get fluxinstance -n flux-system
     echo ""
     echo "GitRepository:"
     kubectl get gitrepositories -n flux-system
     echo ""
-    echo "Recent Events:"
-    kubectl get events -n flux-system --field-selector involvedObject.name=lgtm-repo --sort-by='.lastTimestamp' | tail -3
+    echo "Namespaces:"
+    kubectl get namespaces | grep -E "observability|monitoring"
+    echo ""
+    echo "HelmReleases:"
+    kubectl get helmreleases -A 2>/dev/null || echo "  No HelmReleases found yet - still deploying..."
     echo ""
 }
 
@@ -183,19 +192,19 @@ verify_setup() {
 main() {
     check_prerequisites
     create_cluster
-    install_flux
+    install_flux_operator
     configure_ssh
-    create_gitrepository
+    create_flux_instance
+    wait_for_lgtm
     verify_setup
     
     echo "=== Bootstrap Complete! ==="
     echo ""
-    echo "Your cluster is ready with Flux CD configured to pull from:"
-    echo "  $REPO_URL"
+    echo "Your cluster is ready with the full LGTM stack!"
     echo ""
-    echo "Next steps:"
-    echo "  1. Add your kustomizations to the repository"
-    echo "  2. Create Kustomization resources to deploy them"
+    echo "Access Grafana:"
+    echo "  kubectl port-forward svc/grafana 3000:3000 -n observability"
+    echo "  Then open http://localhost:3000"
     echo ""
     echo "To use the cluster:"
     echo "  kubectl cluster-info --context kind-$CLUSTER_NAME"

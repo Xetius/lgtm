@@ -1,0 +1,47 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: FluxInstance
+metadata:
+  name: flux
+  namespace: flux-system
+spec:
+  distribution:
+    version: "2.3.x"
+    registry: ghcr.io/fluxcd
+  components:
+    - source-controller
+    - kustomize-controller
+    - helm-controller
+    - notification-controller
+  cluster:
+    type: kubernetes
+    multitenant: false
+    networkPolicy: true
+    domain: cluster.local
+  sync:
+    kind: GitRepository
+    url: ssh://git@github.com/chudson-tng/lgtm.git
+    ref: refs/heads/main
+    path: ./infrastructure
+  kustomize:
+    patches:
+      - patch: |
+          apiVersion: v1
+          kind: ServiceAccount
+          metadata:
+            name: source-controller
+            namespace: flux-system
+        target:
+          kind: ServiceAccount
+          name: source-controller
+      - patch: |
+          apiVersion: source.toolkit.fluxcd.io/v1
+          kind: GitRepository
+          metadata:
+            name: flux-system
+            namespace: flux-system
+          spec:
+            secretRef:
+              name: lgtm-repo-ssh
+        target:
+          kind: GitRepository
+          name: flux-system
