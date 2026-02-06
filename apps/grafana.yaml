@@ -16,11 +16,20 @@ spec:
       interval: 1h
   values:
     replicas: 1
-    
+
     resources:
       requests:
         cpu: 100m
         memory: 256Mi
+
+    sidecar:
+      dashboards:
+        enabled: true
+        label: grafana_dashboard
+        labelValue: "1"
+        folder: /tmp/dashboards
+        defaultFolderName: "General"
+        searchNamespace: observability
     
     persistence:
       enabled: true
@@ -109,25 +118,7 @@ spec:
             options:
               path: /var/lib/grafana/dashboards/default
     
-    dashboards:
-      default:
-        # Node Exporter Full dashboard
-        node-exporter:
-          gnetId: 1860
-          revision: 31
-          datasource: mimir
-
-        # Kubernetes Cluster dashboard
-        k8s-cluster:
-          gnetId: 7249
-          revision: 1
-          datasource: mimir
-
-        # Loki Dashboard
-        loki-dashboard:
-          gnetId: 13407
-          revision: 1
-          datasource: loki
+    dashboards: {}
     
     service:
       type: LoadBalancer
