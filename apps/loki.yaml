@@ -90,9 +90,32 @@ spec:
       rootUser: loki
       rootPassword: supersecret
     
+    # Reduce memcached resource requests for Kind cluster
+    chunksCache:
+      enabled: true
+      replicas: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+        limits:
+          memory: 512Mi
+      allocatedMemory: 256
+
+    resultsCache:
+      enabled: true
+      replicas: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          memory: 256Mi
+      allocatedMemory: 128
+
     gateway:
       enabled: false
-    
+
     # Disable monitoring by default for Kind cluster
     monitoring:
       selfMonitoring:
@@ -101,7 +124,7 @@ spec:
           installOperator: false
       lokiCanary:
         enabled: false
-    
+
     # Enable test pod
     test:
       enabled: false
