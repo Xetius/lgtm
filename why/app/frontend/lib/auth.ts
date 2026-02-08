@@ -1,5 +1,6 @@
 import { AuthResponse } from './types'
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '/api/v1'
 const TOKEN_KEY = 'why_token'
 
 export function setToken(token: string) {
@@ -26,7 +27,7 @@ export function isAuthenticated(): boolean {
 }
 
 export async function signup(email: string, password: string): Promise<AuthResponse> {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/signup`, {
+  const response = await fetch(`${API_BASE_URL}/signup`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
@@ -43,7 +44,7 @@ export async function signup(email: string, password: string): Promise<AuthRespo
 }
 
 export async function login(email: string, password: string): Promise<AuthResponse> {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
+  const response = await fetch(`${API_BASE_URL}/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
