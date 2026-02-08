@@ -75,4 +75,4 @@ spec:
 
     # Use LoadBalancer for Kind cluster
     service:
-      type: LoadBalancer
+      type: ClusterIP
