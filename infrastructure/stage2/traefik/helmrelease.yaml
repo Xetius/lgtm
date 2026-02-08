@@ -51,7 +51,7 @@ spec:
 
     # Install Gateway API CRDs
     gateway:
-      enabled: true
+      enabled: false
 
     # Enable Prometheus metrics
     metrics:
