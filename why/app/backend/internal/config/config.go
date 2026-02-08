@@ -25,10 +25,10 @@ func Load() (*Config, error) {
 	cfg := &Config{
 		Port:         getEnv("PORT", "8080"),
 		PostgresURL:  getEnv("POSTGRES_URL", ""),
-		OTLPEndpoint: getEnv("OTLP_ENDPOINT", "alloy.observability.svc.cluster.local:4317"),
+		OTLPEndpoint: getEnv("OTLP_ENDPOINT", "alloy.monitoring.svc.cluster.local:4317"),
 		JWTSecret:    getEnv("JWT_SECRET", "your-secret-key-change-in-production"),
 		MinIO: MinIOConfig{
-			Endpoint:        getEnv("MINIO_ENDPOINT", "loki-minio.observability.svc.cluster.local:9000"),
+			Endpoint:        getEnv("MINIO_ENDPOINT", "loki-minio.monitoring.svc.cluster.local:9000"),
 			AccessKeyID:     getEnv("MINIO_ACCESS_KEY", "loki"),
 			SecretAccessKey: getEnv("MINIO_SECRET_KEY", "supersecret"),
 			BucketName:      getEnv("MINIO_BUCKET", "why-media"),

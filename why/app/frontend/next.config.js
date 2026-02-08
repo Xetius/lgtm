@@ -5,7 +5,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'http',
-        hostname: 'loki-minio.observability.svc.cluster.local',
+        hostname: 'loki-minio.monitoring.svc.cluster.local',
       },
     ],
   },

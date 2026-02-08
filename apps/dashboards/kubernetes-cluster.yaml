@@ -1407,4 +1407,4 @@ metadata:
   labels:
     grafana_dashboard: "1"
   name: kubernetes-cluster-dashboard
-  namespace: observability
+  namespace: monitoring

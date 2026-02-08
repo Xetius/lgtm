@@ -32,7 +32,7 @@ spec:
         - name: POSTGRES_URL
           value: "postgres://why:why-password@why-postgres.why.svc.cluster.local:5432/why?sslmode=disable"
         - name: MINIO_ENDPOINT
-          value: "loki-minio.observability.svc.cluster.local:9000"
+          value: "loki-minio.monitoring.svc.cluster.local:9000"
         - name: MINIO_ACCESS_KEY
           value: "loki"
         - name: MINIO_SECRET_KEY
@@ -42,7 +42,7 @@ spec:
         - name: MINIO_USE_SSL
           value: "false"
         - name: OTLP_ENDPOINT
-          value: "alloy.observability.svc.cluster.local:4317"
+          value: "alloy.monitoring.svc.cluster.local:4317"
         - name: JWT_SECRET
           value: "change-this-in-production-please"
         livenessProbe:

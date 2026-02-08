@@ -155,10 +155,7 @@ wait_for_lgtm() {
     
     echo "Waiting for HelmReleases..."
     for release in mimir loki tempo grafana alloy kube-prometheus-stack; do
-        namespace="observability"
-        if [ "$release" = "kube-prometheus-stack" ]; then
-            namespace="monitoring"
-        fi
+        namespace="monitoring"
         echo "  - Waiting for $release..."
         kubectl wait --for=condition=ready --timeout=300s helmrelease/$release -n $namespace 2>/dev/null || echo "    $release may still be installing..."
     done
@@ -185,7 +182,7 @@ verify_setup() {
     kubectl get gitrepositories -n flux-system
     echo ""
     echo "Namespaces:"
-    kubectl get namespaces | grep -E "observability|monitoring"
+    kubectl get namespaces | grep monitoring
     echo ""
     echo "HelmReleases:"
     kubectl get helmreleases -A 2>/dev/null || echo "  No HelmReleases found yet - still deploying..."
@@ -207,7 +204,7 @@ main() {
     echo "Your cluster is ready with the full LGTM stack!"
     echo ""
     echo "Access Grafana:"
-    echo "  kubectl port-forward svc/grafana 3000:3000 -n observability"
+    echo "  kubectl port-forward svc/grafana 3000:3000 -n monitoring"
     echo "  Then open http://localhost:3000"
     echo ""
     echo "To use the cluster:"

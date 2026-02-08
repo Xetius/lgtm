@@ -2,7 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: loki
-  namespace: observability
+  namespace: monitoring
 spec:
   interval: 1h
   timeout: 10m
@@ -25,7 +25,7 @@ spec:
       storage:
         type: s3
         s3:
-          endpoint: loki-minio.observability.svc.cluster.local:9000
+          endpoint: loki-minio.monitoring.svc.cluster.local:9000
           secretAccessKey: supersecret
           accessKeyId: loki
           s3ForcePathStyle: true

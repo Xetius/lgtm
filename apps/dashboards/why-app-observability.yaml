@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: why-app-observability-dashboard
-  namespace: observability
+  namespace: monitoring
   labels:
     grafana_dashboard: "1"
 data:

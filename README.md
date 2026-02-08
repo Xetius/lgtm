@@ -16,7 +16,7 @@ Local implementation of the LGTM stack using Kind and Flux CD
 To create the cluster and deploy the LGTM stack:
 
 ```bash
-./bootstrap.sh
+./scripts/bootstrap.sh
 ```
 
 This will:
@@ -30,22 +30,23 @@ This will:
 After deployment, you can access Grafana:
 
 ```bash
-kubectl port-forward svc/grafana 3000:3000 -n observability
+kubectl port-forward svc/grafana 3000:3000 -n monitoring
 ```
 
 Then open http://localhost:3000
 
 Default credentials:
 - Username: admin
-- Password: Retrieve with: `kubectl get secret grafana -n observability -o jsonpath='{.data.admin-password}' | base64 -d`
+- Password: Retrieve with: `kubectl get secret grafana -n monitoring -o jsonpath='{.data.admin-password}' | base64 -d`
 
 ## Structure
 
 ```
 .
-├── infrastructure/    # Infrastructure components (namespaces, repositories, Flux Kustomizations)
-├── apps/             # LGTM stack applications (HelmReleases)
-└── bootstrap.sh      # Bootstrap script
+├── infrastructure/    # Infrastructure components (cert-manager, traefik, gateway-api, etc.)
+├── apps/             # LGTM stack applications (HelmReleases and dashboards)
+├── scripts/          # Bootstrap and utility scripts
+└── clusters/         # Flux cluster configuration
 ```
 
 ## Architecture

@@ -23355,4 +23355,4 @@ metadata:
   labels:
     grafana_dashboard: "1"
   name: node-exporter-dashboard
-  namespace: observability
+  namespace: monitoring

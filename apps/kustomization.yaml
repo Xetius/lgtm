@@ -9,3 +9,7 @@ resources:
   - grafana.yaml
   - alloy.yaml
   - alertmanager.yaml
+  - dashboards/node-exporter.yaml
+  - dashboards/kubernetes-cluster.yaml
+  - dashboards/loki.yaml
+  - dashboards/why-app-observability.yaml
