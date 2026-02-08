@@ -11,5 +11,6 @@ spec:
   path: ./grafana-dashboards
   prune: true
   wait: true
+  timeout: 10m
   dependsOn:
     - name: apps

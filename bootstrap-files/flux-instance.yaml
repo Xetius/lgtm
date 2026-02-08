@@ -21,7 +21,7 @@ spec:
     kind: GitRepository
     url: ssh://git@github.com/chudson-tng/lgtm.git
     ref: refs/heads/main
-    path: ./infrastructure
+    path: ./clusters/lgtm
   kustomize:
     patches:
       - patch: |
